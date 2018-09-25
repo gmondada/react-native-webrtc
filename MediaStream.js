@@ -2,6 +2,7 @@
 
 import {NativeModules} from 'react-native';
 import EventTarget from 'event-target-shim';
+import uuid from 'uuid/v1';
 import MediaStreamTrackEvent from './MediaStreamTrackEvent';
 
 import type MediaStreamTrack from './MediaStreamTrack';
@@ -38,6 +39,9 @@ export default class MediaStream extends EventTarget(MEDIA_STREAM_EVENTS) {
 
   constructor(id, reactTag) {
     super();
+    if (typeof id === 'undefined') {
+      id = uuid();
+    }
     this.id = id;
     // Local MediaStreams are created by WebRTCModule to have their id and
     // reactTag equal because WebRTCModule follows the respective standard's
